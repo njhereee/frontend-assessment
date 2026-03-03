@@ -1,20 +1,26 @@
 import {
   useLoaderData,
   useSearchParams,
-  type LoaderFunctionArgs,
 } from "react-router-dom";
 
 type Province = { id: number; name: string };
 type Regency = { id: number; name: string; province_id: number };
 type District = { id: number; name: string; regency_id: number };
 
-export async function loader(_args: LoaderFunctionArgs) {
-  const res = await fetch("/data/indonesia_regions.json");
-  const data = await res.json();
+export async function loader() {
+  const base = import.meta.env.BASE_URL;
+  const response = await fetch(base + "data/indonesia_regions.json");
+
+  if (!response.ok) {
+    throw new Error("Failed to load indonesia_regions.json");
+  }
+
+  const data = await response.json();
+
   return {
-    provinces: (data.provinces ?? []) as Province[],
-    regencies: (data.regencies ?? []) as Regency[],
-    districts: (data.districts ?? []) as District[],
+    provinces: data.provinces ?? [],
+    regencies: data.regencies ?? [],
+    districts: data.districts ?? [],
   };
 }
 
