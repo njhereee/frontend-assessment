@@ -9,16 +9,8 @@ import "./index.css";
 import FilterPage, { loader as filterLoader } from "./FilterPage";
 
 const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <FilterPage />,
-      loader: filterLoader,
-    },
-  ],
-  {
-    basename: "/frontend-assessment",
-  }
+  [{ path: "/", element: <FilterPage />, loader: filterLoader }],
+  { basename: import.meta.env.BASE_URL.replace(/\/$/, "") }
 );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
