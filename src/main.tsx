@@ -8,10 +8,12 @@ import "./index.css";
 
 import FilterPage, { loader as filterLoader } from "./FilterPage";
 
-const router = createBrowserRouter(
-  [{ path: "/", element: <FilterPage />, loader: filterLoader }],
-  { basename: import.meta.env.BASE_URL.replace(/\/$/, "") }
-);
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+const router = createBrowserRouter([
+  { path: "/", element: <FilterPage />, loader: filterLoader },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
